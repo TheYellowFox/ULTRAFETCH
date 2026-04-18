@@ -1,0 +1,2 @@
+# ULTRAFETCH
+Fastfetch config in ULTRAKILL STYLE
