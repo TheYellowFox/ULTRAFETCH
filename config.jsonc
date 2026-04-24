@@ -1,0 +1,164 @@
+// MODIFIED BY STEFAN WITTE (androsonics@gmail.com)
+
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "logo": {
+    "type": "file-raw",           
+    "source": "./yhi.utf8ans",  
+	"padding": {
+		"left": 0,
+		"right": 0,
+		"top": 0
+	}
+},
+	
+	
+  "modules": [
+
+    {
+      "type": "title",
+      "format": "{user-name}@v1PC",
+    },
+ 
+    "separator",
+    {
+      "type": "custom",
+      "key": "OS",
+      "format": "Nocturnal Sys. 2112.08.06",
+      "keyColor": "white"
+    },
+    {
+      "type": "custom",
+      "key": "MACHINE ID",
+      "format": "V1",
+      "keyColor": "white"
+    },
+    "separator",
+    {
+      "type": "custom",
+      "key": "CURRENT LOCATION",
+      "format": "HELL",
+      "keyColor": "white"
+    },
+    {
+	"type": "command",
+	"key": "SYSTEM TIME",
+	"keyColor": "white",
+	"text": "date"
+    },
+    {
+      "type": "command",
+      "key": "WM",
+      "text": "echo $XDG_CURRENT_DESKTOP $DESKTOP_SESSION",
+      "keyColor": "white"
+    },
+    {
+      "type": "terminal",
+      "key" : "TERMINAL",
+      "keyColor": "white"
+    },
+    "separator",   
+    {
+      "type": "media",
+      "key": "MEDIA",
+      "keyColor": "white"
+    },
+    "break",
+    {
+    "type": "command",
+    "key": "AUDIO",
+    "keyColor": "white",
+    "text": "if aplay -l &>/dev/null || lspci | grep -i audio &> /dev/null || lsusb | grep -i audio &>/dev/null; then echo -e \"\\e[32mOK\\e[0m\"; else echo -e \"\\e[31mERROR\\e[0m\"; fi"
+    },
+    {
+	"type": "command",
+	"key": "AUDIO DEVICE",
+	"keyColor": "white",
+	"text": "lspci | grep -i audio | cut -d ' ' -f 5- || lsusb | grep -i audio | cut -d ' ' -f 5-"
+    },
+    "break",
+    {
+      "type": "custom",
+      "key": "{#white}VIDEO{#}",
+      "format": "{#green}OK{#}"
+    },
+    {
+	"type": "command",
+	"key": "VIDEO DEVICE",
+	"keyColor": "white",
+	"text": "lspci | grep -E \"VGA|3D\" | cut -d ' ' -f 5-"
+    },
+    {
+	"type": "command",
+	"key": "CAMERA DISPLAY RESOLUTION",
+	"keyColor": "white",
+	"text": "xrandr | grep \"*\" | cut -c 4-13"
+    },
+    "break",
+    {
+      "type": "custom",
+      "key": "{#white}CENTRAL PROCESSOR UNIT{#}",
+      "format": "{#green}OK{#}"
+    },
+    {
+	"type": "command",
+	"key": "CPU DEVICE",
+	"keyColor": "white",
+	"text": "grep -m 1 \"model name\" /proc/cpuinfo | cut -d ' ' -f 3-"
+    },
+    "break",
+    "separator",
+	"break",	
+    {
+      "type": "command",
+      "key": "BLOOD USAGE",
+      "keyColor": "red",
+      "text": "free --mega | awk '/^Mem:/ {printf \"%.1f L / %.1f L (%.0f%%)\", $3/1024, $2/1024, $3*100/$2}'"
+    },    
+	
+    {
+	"type": "command",
+	"key": "HARDWARE STRAIN",
+	"keyColor": "red",
+	"text": "read i1 i5 i15 _ < /proc/loadavg; cpus=$(nproc); printf \"1M : %s | 5M : %s | 15M : %s | CORES: %s\" \"$i1\" \"$i5\" \"$i15\" \"$cpus\""
+    },
+    {
+      "type": "command",
+      "key": "BLOOD FUEL",
+      "keyColor": "red",
+      "text": "df -m / | awk 'NR==2 {printf \"%.1f L / %.1f L (%.0f%%)\", $3/1024, $2/1024, $5+0}'"
+    },
+    "break",
+    {
+	"type": "command",
+	"key": "TIME AWAKE",
+	"keyColor": "blue",
+	"text": "uptime -p | cut -d ' ' -f 2-"
+
+    },
+    "break",
+    {
+	"type": "command",
+	"key": "STATUS UPDATE",
+	"keyColor": "white",
+	"text": "read l1 l5 l15 _ < /proc/loadavg; cpus=$(nproc); val=$(awk -v f=\"$l1\" -v s=\"$l5\" -v t=\"$l15\" 'BEGIN{print((f+s+t)/3)}'); w=$(awk -v c=\"$cpus\" -v v=\"1.0\" 'BEGIN{printf \"%.2f\", v*c}'); cr=$(awk -v c=\"$cpus\" -v v=\"2.0\" 'BEGIN{printf \"%.2f\", v*c}'); if (( $(awk 'BEGIN{print('\"$val\"' >= '\"$cr\"')}') )); then echo -e \"\\e[31mCRITICAL SYSTEM OVERLOAD. INSUFFICIENT BLOOD SUPPLY\\e[0m\"; elif (( $(awk 'BEGIN{print('\"$val\"' >= '\"$w\"')}') )); then echo -e \"\\e[33mSYSTEM OVERLOAD DETECTED. \\e[31mBLOOD\\e[33m CONSUMPTION INCREASED\\e[0m\"; else echo -e \"\\e[32mALL SYSTEMS OPERATIONAL\\e[0m\"; fi"
+    },
+    "break",
+    "separator",
+    "break",
+    {
+	"type": "custom",
+	"format": "{#red}MANKIND IS DEAD{#}"
+    },
+    {
+	"type": "custom",
+	"format": "{#red}BLOOD IS FUEL{#}"
+    },
+    {
+	"type": "custom",
+	"format": "{#red}HELL IS FULL{#}"
+    },
+    "break",
+    "colors"
+  ]
+}
